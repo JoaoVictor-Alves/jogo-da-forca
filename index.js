@@ -4,19 +4,29 @@ const { stdin: input, stdout: output } = require ('process');
 const rl = readline.createInterface({input, output});
 
 async function iniciarJogo() {
-    const palavras = ["BACKEND", "NODEJS", "JAVASCRIPT", "EXPRESS", "SERVIDOR", "TERMINAL"];
+    const palavras = [
+    { palavra: "BACKEND", dica: "A lógica que roda nos bastidores do servidor!" },
+    { palavra: "NODEJS", dica: "Ambiente de execução JavaScript!" },
+    { palavra: "JAVASCRIPT", dica: "Linguagem de programação WEB!" },
+    { palavra: "EXPRESS", dica: "Framework minimalista para criar APIs!" },
+    { palavra: "SERVIDOR", dica: "Computador que fornece serviços para outros computadores!" },
+    { palavra: "TERMINAL", dica: "Interface de linha de comando!" }
+    ];
 
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
-    const palavraSecreta = palavras[indiceAleatorio];
+    const palavraSecreta = palavras[indiceAleatorio].palavra;
+    const dica = palavras[indiceAleatorio].dica;
 
     let letrasDescobertas = Array(palavraSecreta.length).fill("_");
     let jogoRodando = true;
 
     let vidas = 6;
-
     console.log("=== Bem-vindo ao Jogo da Forca ===");
 
+
     while(jogoRodando){
+    console.log(`\nVidas restantes: ${vidas}`);
+    console.log(`\n[DICA] Dica: ${dica}`);
         console.log(`\nPalavra atual: ${letrasDescobertas.join("")}`);
 
         const chute = (await rl.question("Digite uma letra: ")).toUpperCase();
